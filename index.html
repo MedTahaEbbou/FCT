@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fist class Tour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --white: #fff;
+            --black: #333;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            animation: pulse 2s infinite;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 5px 10px;
+            border: 1px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 20px 5%;
+            text-align: center;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            background: white;
+            padding: 10px;
+        }
+
+        .slider {
+            display: flex;
+            width: 300%;
+        }
+
+        .slide {
+            width: 33.33%;
+            flex-shrink: 0;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* LTR slider animation */
+        .slider-ltr {
+            animation: slide-ltr 6s infinite;
+        }
+
+        @keyframes slide-ltr {
+            0% { transform: translateX(0); }
+            33% { transform: translateX(-33.33%); }
+            66% { transform: translateX(-66.66%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* RTL slider animation (reverse direction) */
+        .slider-rtl {
+            animation: slide-rtl 6s infinite;
+        }
+
+        @keyframes slide-rtl {
+            0% { transform: translateX(0); }
+            33% { transform: translateX(33.33%); }
+            66% { transform: translateX(66.66%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 30px 5%;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .about h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .about p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-btn i {
+            margin-right: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            text-align: center;
+            padding: 30px 5%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 15px;
+        }
+
+        .email-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+        }
+
+        .developer {
+            color: var(--secondary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .developer:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 5%;
+            }
+            
+            .logo {
+                height: 30px;
+            }
+            
+            .company-name {
+                font-size: 1.2rem;
+            }
+            
+            .lang-btn {
+                padding: 3px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .hero {
+                margin-top: 60px;
+            }
+            
+            .about h2 {
+                font-size: 1.5rem;
+            }
+            
+            .about p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                gap: 8px;
+            }
+            
+            .logo {
+                height: 25px;
+            }
+            
+            .company-name {
+                font-size: 1rem;
+            }
+            
+            .language-switcher {
+                gap: 5px;
+            }
+            
+            .lang-btn {
+                padding: 2px 5px;
+                font-size: 0.6rem;
+            }
+            
+            .whatsapp-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* RTL/LTR Direction Handling */
+        [dir="rtl"] {
+            text-align: right;
+        }
+
+        [dir="ltr"] {
+            text-align: left;
+        }
+
+        [dir="rtl"] .whatsapp-btn i {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+
+        /* Language Specific Styles */
+        .lang-ar {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .lang-fr {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .lang-en {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body class="lang-en" dir="ltr">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="pics/logo.jpg" alt="Tour Mieuble Logo" class="logo">
+            <span class="company-name">Fist class Tour</span>
+        </div>
+        <div class="language-switcher">
+            <button class="lang-btn" data-lang="ar" data-dir="rtl">العربية</button>
+            <button class="lang-btn" data-lang="fr" data-dir="ltr">Français</button>
+            <button class="lang-btn active" data-lang="en" data-dir="ltr">English</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="slider-container">
+            <div class="slider slider-ltr">
+                <div class="slide">
+                    <img src="pics/pic1.jpeg" alt="السياحة في موريتانيا">
+                </div>
+                <div class="slide">
+                    <img src="pics/pic2.jpeg" alt="أماكن سياحية في موريتانيا">
+                </div>
+                <div class="slide">
+                    <img src="pics/pic3.jpeg" alt="جمال موريتانيا الطبيعي">
+                </div>
+            </div>
+        </div>
+
+        <div class="about">
+            <h2 data-translate="about_title">Welcome to Fist class Tour</h2>
+            <p data-translate="about_text1">Fist class Tour is a leading travel agency in Mauritania, specializing in providing unique and memorable travel experiences.</p>
+            <p data-translate="about_text2">We offer a wide range of tourist services that meet all travelers' needs, from tailor-made tours to luxurious stays in the best hotels.</p>
+            <p data-translate="about_text3">Our team of local experts knows every corner of Mauritania and will help you discover the hidden beauty of this enchanting land.</p>
+            
+            <a href="https://wa.me/+22230571800" class="whatsapp-btn" data-translate="contact_btn">
+                <i class="fab fa-whatsapp"></i>
+                <span>Contact us on WhatsApp</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p data-translate="rights">All rights reserved &copy; 2023 Fist class Tour</p>
+            <p>
+                <span data-translate="email">Email: </span>
+                <a href="mailto:@gmail.com" class="email-link"></a>
+            </p>
+            <p>
+                <span data-translate="developed">Website developed by: </span>
+                <a href="https://wa.me/22244508860?text=مرحبا%20أريد%20برمجة%20موقع" class="developer">[ Mohamed Taha Ab ]</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Translation
+        const translations = {
+            ar: {
+                about_title: "مرحبًا بكم في Fist class Tour",
+                about_text1: "Fist class Tour هي وكالة سياحية رائدة في موريتانيا، متخصصة في تقديم تجارب سفر فريدة لا تُنسى.",
+                about_text2: "نحن نقدم مجموعة واسعة من الخدمات السياحية التي تلبي جميع احتياجات المسافرين، من الجولات المصممة خصيصًا إلى الإقامة الفاخرة في أفضل الفنادق.",
+                about_text3: "فريقنا من الخبراء المحليين يعرف كل زاوية من موريتانيا وسيساعدك في اكتشاف الجمال الخفي لهذه الأرض الساحرة.",
+                contact_btn: "تواصل معنا عبر واتساب",
+                rights: "جميع الحقوق محفوظة",
+                email: "البريد الإلكتروني:",
+                developed: "تمت برمجة الموقع من قبل:"
+            },
+            fr: {
+                about_title: "Bienvenue chez Fist class Tour",
+                about_text1: "Fist class Tour est une agence de voyage leader en Mauritanie, spécialisée dans la fourniture d'expériences de voyage uniques et mémorables.",
+                about_text2: "Nous offrons une large gamme de services touristiques répondant à tous les besoins des voyageurs, des visites sur mesure aux séjours luxueux dans les meilleurs hôtels.",
+                about_text3: "Notre équipe d'experts locaux connaît chaque coin de la Mauritanie et vous aidera à découvrir la beauté cachée de ce pays enchanteur.",
+                contact_btn: "Contactez-nous sur WhatsApp",
+                rights: "Tous droits réservés",
+                email: "Email:",
+                developed: "Site développé par:"
+            },
+            en: {
+                about_title: "Welcome to Fist class Tour",
+                about_text1: "Fist class Tour is a leading travel agency in Mauritania, specializing in providing unique and memorable travel experiences.",
+                about_text2: "We offer a wide range of tourist services that meet all travelers' needs, from tailor-made tours to luxurious stays in the best hotels.",
+                about_text3: "Our team of local experts knows every corner of Mauritania and will help you discover the hidden beauty of this enchanting land.",
+                contact_btn: "Contact us on WhatsApp",
+                rights: "All rights reserved",
+                email: "Email:",
+                developed: "Website developed by:"
+            }
+        };
+
+        // Language Switching Functionality
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                const dir = this.getAttribute('data-dir');
+                
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Change language and direction
+                document.body.className = `lang-${lang}`;
+                document.body.setAttribute('dir', dir);
+                document.documentElement.lang = lang;
+                
+                // Update slider animation direction
+                const slider = document.querySelector('.slider');
+                slider.classList.remove('slider-ltr', 'slider-rtl');
+                if (dir === 'rtl') {
+                    slider.classList.add('slider-rtl');
+                } else {
+                    slider.classList.add('slider-ltr');
+                }
+                
+                // Translate all elements
+                Object.keys(translations[lang]).forEach(key => {
+                    const elements = document.querySelectorAll(`[data-translate="${key}"]`);
+                    elements.forEach(el => {
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            el.placeholder = translations[lang][key];
+                        } else {
+                            el.textContent = translations[lang][key];
+                        }
+                    });
+                });
+            });
+        });
+
+        // Set English as default on first visit
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if language is already set (e.g., from a previous visit)
+            if (!localStorage.getItem('languageSet')) {
+                // Set English as default
+                const englishBtn = document.querySelector('.lang-btn[data-lang="en"]');
+                if (englishBtn) {
+                    englishBtn.click();
+                }
+                localStorage.setItem('languageSet', 'true');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Developer WhatsApp link
+        document.querySelector('.developer').addEventListener('click', function() {
+            window.open('https://wa.me/22244508860?text=مرحبا%20أريد%20برمجة%20موقع', '_blank');
+        });
+    </script>
+</body>
+</html>
